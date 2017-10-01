@@ -7,8 +7,8 @@ public class GameController : MonoBehaviour {
 
 	public GameObject enemy;
     public int hazardCount = 5;
-    public float spawnEnemyWait = 3.0f;
-    public float minSpawnEnemyWait = 0.5f;
+    public float spawnEnemyWait = 4.0f;
+    public float minSpawnEnemyWait = 0.2f;
     public float spawnGemWait = 2.0f;
     public float minSpawnGemWait = 0.5f;
     public float startWait = 5.0f;
@@ -72,6 +72,7 @@ public class GameController : MonoBehaviour {
             }
 
             yield return new WaitForSeconds(spawnEnemyWait);
+            spawnEnemyWait = (spawnEnemyWait - 0.1f < minSpawnEnemyWait*2 ? minSpawnEnemyWait*2 : spawnEnemyWait - 0.1f);
         }
     }
 
@@ -89,8 +90,6 @@ public class GameController : MonoBehaviour {
             yield return new WaitForSeconds(spawnGemWait);
             if (gameOver)
             {
-                // restartText.text = "Press 'R' for Restart";
-                // restart = true;
                 break;
             }
         }

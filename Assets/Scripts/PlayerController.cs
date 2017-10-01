@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public AudioClip hit;
     public AudioClip die;
+    public MovementController movementController;
+    public JumpController jumpController;
 
 
     private bool grounded = false;
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         grounded = Physics2D.Linecast(transform.position, groundCheck.position, 11 << LayerMask.NameToLayer("Arena"));
 
-        if (Input.GetButtonDown("Jump") && grounded)
+        if (jumpController.CanJump() && grounded)
         {
             jump = true;
         }
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         if(!dead)
         {
-            float h = Input.GetAxis("Horizontal");
+            float h = movementController.GetDirection();
 
             // If h is 0, then the player moved, the lastTimeMoved is now
             if (h != 0)

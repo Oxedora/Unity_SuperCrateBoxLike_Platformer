@@ -83,11 +83,10 @@
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\GemSpawn.cs" />
+    <Compile Include="Assets\Scripts\JumpController.cs" />
+    <Compile Include="Assets\Scripts\MovementController.cs" />
     <Compile Include="Assets\Scripts\PickUpGem.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Sprite Pack\Tap and Fly\Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
