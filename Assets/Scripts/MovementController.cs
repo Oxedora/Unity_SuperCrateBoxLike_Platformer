@@ -27,7 +27,6 @@ public class MovementController : MonoBehaviour, IPointerDownHandler, IDragHandl
             Vector2 currentPosition = Camera.main.ScreenToWorldPoint(data.position);
             Vector2 directionRaw = currentPosition - origin;
             direction = directionRaw.normalized;
-            Debug.Log("Pointer Down Center Position : "+origin+", touch position : "+currentPosition);
         }
     }
 
@@ -38,7 +37,6 @@ public class MovementController : MonoBehaviour, IPointerDownHandler, IDragHandl
             Vector2 currentPosition = Camera.main.ScreenToWorldPoint(data.position);
             Vector2 directionRaw = currentPosition - origin;
             direction = directionRaw.normalized;
-            Debug.Log("Center Position : " + origin + ", touch position : " + currentPosition);
         }
     }
 

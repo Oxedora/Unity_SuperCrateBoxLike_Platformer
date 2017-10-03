@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
 	public GameObject enemy;
+    public GameObject enemyJumper;
     public int hazardCount = 5;
     public float spawnEnemyWait = 4.0f;
     public float minSpawnEnemyWait = 0.2f;
@@ -15,9 +16,12 @@ public class GameController : MonoBehaviour {
 
     public Text scoreText;
     public Text gameOverText;
+    public Text bestScoreText;
     public GameObject restartButton;
 
     private int score;
+    private int bestScore;
+    private string bestScoreName = "Highscore";
     private AudioSource scoreSound;
     private List<GemSpawn> gemSpawners = new List<GemSpawn>();
     private bool gameOver;
@@ -27,6 +31,7 @@ public class GameController : MonoBehaviour {
     void Start()
     {
         score = 0;
+        bestScore = PlayerPrefs.GetInt(bestScoreName);
         gameOver = false;
         gameOverText.text = "";
         restartButton.SetActive(false);
@@ -56,11 +61,21 @@ public class GameController : MonoBehaviour {
             int roll = Random.Range(0, 6);
             int nbSpawn = (roll > 4 ? 3 : (roll > 2 ? 2 : 1));
 
-            for(int i = 0; i < nbSpawn; i++)
+            for (int i = 0; i < nbSpawn; i++)
             {
                 Vector3 spawnPosition = new Vector2(spawnValue.x, spawnValue.y);
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(enemy, spawnPosition, spawnRotation);
+                yield return new WaitForSeconds(minSpawnEnemyWait);
+            }
+
+            bool jumper = Random.value > 0.7f;
+
+            if (jumper)
+            {
+                Vector3 spawnPosition = new Vector2(spawnValue.x, spawnValue.y);
+                Quaternion spawnRotation = Quaternion.identity;
+                Instantiate(enemyJumper, spawnPosition, spawnRotation);
                 yield return new WaitForSeconds(minSpawnEnemyWait);
             }
 
@@ -120,6 +135,13 @@ public class GameController : MonoBehaviour {
     void UpdateScore()
     {
         scoreText.text = "Score : " + score;
+
+        if(score > bestScore)
+        {
+            PlayerPrefs.SetInt(bestScoreName, score);
+            bestScore = score;
+        }
+        bestScoreText.text = "Best score : " + bestScore;
     }
 
     public void GameOver()

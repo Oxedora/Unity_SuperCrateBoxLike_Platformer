@@ -18,10 +18,10 @@ TagManager:
   - 
   - Background
   - Pickable
-  - Agents
+  - Enemy
+  - Player
   - Arena
-  - 
-  - 
+  - PlayerBoundary
   - 
   - 
   - 

@@ -8,9 +8,15 @@ public class EnemyController : MonoBehaviour {
 
     public int scoreValue = 1;
     public float maxSpeed = 5f;
+    public bool jumping;
+    public float jumpForce = 1000f;
+    public Transform groundCheck;
+
     private Rigidbody2D rb2d;
     private CircleCollider2D myCollider;
     private PlayerController playerController;
+    private bool grounded = false;
+    private bool jump = false;
 
     // Use this for initialization
     void Start () {
@@ -42,6 +48,19 @@ public class EnemyController : MonoBehaviour {
         int h = (facingRight ? 1 : -1);
 
         rb2d.velocity = new Vector2(Mathf.Sign(h) * maxSpeed, rb2d.velocity.y);
+
+        grounded = Physics2D.Linecast(transform.position, groundCheck.position, 11 << LayerMask.NameToLayer("Arena"));
+
+        if (jumping && grounded)
+        {
+            jump = true;
+        }
+
+        if (jump)
+        {
+            rb2d.AddForce(new Vector2(0f, jumpForce));
+            jump = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -70,6 +89,23 @@ public class EnemyController : MonoBehaviour {
         if(collision.collider.CompareTag("Player"))
         {
             playerController.TakeDamage();
+        }
+        else if(collision.collider.CompareTag("Border"))
+        {
+            if(transform.position.x < 0)
+            {
+                if(!facingRight)
+                {
+                    Flip();
+                }
+            }
+            else
+            {
+                if(facingRight)
+                {
+                    Flip();
+                }
+            }
         }
     }
 
