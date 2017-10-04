@@ -140,7 +140,7 @@ MonoBehaviour:
   scoreValue: 1
   maxSpeed: 3
   jumping: 0
-  jumpForce: 1000
+  jumpForce: 250
   groundCheck: {fileID: 4505620026815134}
 --- !u!212 &212794759751184538
 SpriteRenderer:

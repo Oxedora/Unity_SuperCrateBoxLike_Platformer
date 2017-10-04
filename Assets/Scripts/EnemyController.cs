@@ -49,7 +49,8 @@ public class EnemyController : MonoBehaviour {
 
         rb2d.velocity = new Vector2(Mathf.Sign(h) * maxSpeed, rb2d.velocity.y);
 
-        grounded = Physics2D.Linecast(transform.position, groundCheck.position, 11 << LayerMask.NameToLayer("Arena"));
+        Debug.Log(LayerMask.NameToLayer("PlayerBoundary"));
+        grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Arena"));
 
         if (jumping && grounded)
         {
